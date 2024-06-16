@@ -9,7 +9,7 @@ try:
     with open(f"{os.getcwd()}/l", encoding="utf-8") as f:
         Datas = json.load(f)
 except:
-	print("You need Settings.exe")
+	input("You need Settings.exe")
 
 class MVideoEditor:
 	def run(self, Dir, Name, Time):
@@ -91,18 +91,39 @@ class ConcatenitePsyevdo:
 				ListVideo.append(f"{os.getcwd()}\\tmp\\{FileName}")
 		VideoProcesss = []
 		#Постановка на "Конвеер"
+		Count = 0
+		for filename in os.listdir():
+			if ".mp4" in filename and "AI" in filename:Count+= 1
+		VName = []
 		for Step in range(Divides + 1):
+			Count += 1
+			Name = f"AI{Count}.mp4"
 			cv = ConcateniteVideos
-			p = Process(target=cv.run, args=(cv, ListVideo[int(Step * (len(ListVideo) / (Divides + 1))) : int((Step + 1) * (len(ListVideo) / (Divides + 1)))]))
+			p = Process(target=cv.run, args=(cv, ListVideo[int(Step * (len(ListVideo) / (Divides + 1))) : int((Step + 1) * (len(ListVideo) / (Divides + 1)))], Name))
+			VName.append(Name)
 			p.start()
 			VideoProcesss.append(p)
 		[proc.join() for proc in VideoProcesss]
 		print("\n\n\n\nМонтаж окончен\n\n\n\n")
 		[os.remove(f"{os.getcwd()}\\tmp\\{Name}") for Name in os.listdir(f"{os.getcwd()}\\tmp")]
 		os.rmdir(f"{os.getcwd()}\\tmp")
+		data = ["", 0, 20, []]
+		try:
+			with open("l", "r", encoding="utf-8") as f:
+				data = json.load(f)
+		except:pass
+		data[3] = VName
+		try:
+			with open("l", "w", encoding="utf-8") as f:
+				json.dump(data, f)
+		except:pass
+		try:
+			os.system(f"start {os.getcwd()}/Preview.py")
+		except:
+			os.system(f"start {os.getcwd()}/Preview.exe")
 
 class ConcateniteVideos:
-	def run(self, ListWithVideoFileClip):
+	def run(self, ListWithVideoFileClip, ResName):
 		ListVideo = [VideoFileClip("Intro.mp4")]
 
 		shuffle(ListWithVideoFileClip)
@@ -111,7 +132,6 @@ class ConcateniteVideos:
 		
 		ListVideo.append(VideoFileClip("Outro.mp4"))
 		Result = concatenate_videoclips(ListVideo)
-		ResName = f"AI{randint(0,99999999999999999999999999999999999)}.mp4"
 		while 1:
 			if os.path.isfile(os.getcwd()+f"\\{ResName}"):
 				ResName="_"+ResName
