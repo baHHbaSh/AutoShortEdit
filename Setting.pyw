@@ -39,7 +39,7 @@ class RenderSettings(App):
 		self.PC = label.Label(text=f"{self.ProcessCounter.value}")
 		[o.add_widget(w) for w in [self.ProcessCounter, self.PC]]
 
-		StartButton = button.Button(text="Рендер")
+		StartButton = button.Button(text="Проверка материала + Рендер")
 		StartButton.on_release=self.ResolutionCheck
 
 		[Lay.add_widget(w) for w in [n1, d, n2, l, n3, o, StartButton]]
