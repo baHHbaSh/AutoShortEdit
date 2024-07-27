@@ -124,13 +124,12 @@ class ConcatenitePsyevdo:
 
 class ConcateniteVideos:
 	def run(self, ListWithVideoFileClip, ResName):
-		ListVideo = [VideoFileClip("Intro.mp4")]
+		ListVideo = []
 
 		shuffle(ListWithVideoFileClip)
 
 		[ListVideo.append(VideoFileClip(v)) for v in ListWithVideoFileClip]
 		
-		ListVideo.append(VideoFileClip("Outro.mp4"))
 		Result = concatenate_videoclips(ListVideo)
 		while 1:
 			if os.path.isfile(os.getcwd()+f"\\{ResName}"):
