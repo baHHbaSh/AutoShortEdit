@@ -91,8 +91,10 @@ class RenderSettings(App):
 		pp = popup.Popup(title="Внимание", content=l, size_hint=[.9,.9])
 		pp.open()
 	def DeleteAndRun(self):
+		''' Depricated
 		for index, Name in enumerate(os.listdir(self.DirTi.text)):
 			if self.RList[index] != self.MRes:
 				os.remove(f"{self.DirTi.text}\\{Name}")
+		'''
 		self.RenderRun()
 RenderSettings().run()

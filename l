@@ -1,1 +1,1 @@
-["F:\\vid\\Short\\War Thunder", 0, 20]
+["F:\\vid\\Short\\War Thunder", 2, 12]

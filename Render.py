@@ -17,8 +17,9 @@ class MVideoEditor:
 			Filename = f"{os.getcwd()}/tmp/{Name}".replace("\\", "/")
 			Var = VideoFileClip(Dir+"/"+Name)
 			Var = Var.subclip(round(0+20-Time/1.25), round(Var.duration-Var.duration/2+Time/2.25))
+			Var = Var.resize(width=1920, height=1080)
 			Result = concatenate_videoclips([Var])
-			Result.write_videofile(Filename)
+			Result.write_videofile(Filename, fps=60)
 		except:
 			try:
 				print("", end="\n")
